@@ -21,7 +21,7 @@ In chat:
 
 # How to install:
 
-Vizality: Open a CMD/Powershell/Terminal/Gitbash window in the Plugin folder and use: `git clone https://github.com/bakzkndd/CodeBlocksEnhanced/`
+Vizality: Open a CMD/Powershell/Terminal/Gitbash window in the Plugin folder and use: `git clone https://github.com/bakzkndd/CodeBlockEnhanced/`
 
 # Support
 
