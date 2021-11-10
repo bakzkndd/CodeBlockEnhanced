@@ -1,0 +1,34 @@
+@use "@vizality" as vz;
+
+.vz-code-block-line-numbers::after {
+  background-color: inherit;
+
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
+:root .hljs.scrollbar-3dvm_9 {
+  background-color: var(--HighlightedCodeBlock-Background) !important;
+}
+
+.vz-code-block-copy-button-quickcode {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  max-height: calc(100% - 10px);
+  min-height: 0;
+  opacity: 0;
+  color: var(--header-primary);
+  background: var(--background-floating);
+  box-shadow: var(--elevation-medium);
+  opacity: 0;
+  transform: opacity 0.17s, background-color 0.17s ease, color 0.17s ease;
+}
+.vz-code-block-code:hover .vz-code-block-copy-button-quickcode {
+  opacity: 1;
+}
+.markup-2BOw-j code {
+  scrollbar-color: var(--background-accent) var(--foreground-accent);
+  background: var(--HighlightedCodeBlock-Background);
+  border: 1px solid var(--HighlightedCodeBlock-Background);
+}
