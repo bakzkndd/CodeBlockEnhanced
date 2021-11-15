@@ -50,6 +50,8 @@ export default memo((props) => {
   const { highlight } = getModule("highlight", "hasLanguage");
   const { getLanguage } = getModule("initHighlighting", "highlight");
 
+  language = language.toLowerCase();
+
   const innerHTML = highlighter.codeToHtml(content, language);
   const theme = highlighter?.getTheme();
   const plainColor = theme?.fg || "var(--text-normal)";
