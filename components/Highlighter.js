@@ -14,7 +14,7 @@ exports.highlighter = {
       myLanguages.push({
         grammar: language,
         id: language.name,
-        path: `${__dirname}/../languages/${languagedir[i]}`,
+        path: `${__dirname}/../languages/${languageDir[i]}`,
         scopeName: language.scopeName,
       });
     }
