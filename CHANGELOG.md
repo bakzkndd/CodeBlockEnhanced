@@ -1,3 +1,9 @@
+# V1.1.0
+
+- Add Kotlin support
+
+- Improve custom language loader
+
 # V1.0.0
 
 Initial Release
