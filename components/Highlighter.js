@@ -19,9 +19,11 @@ exports.highlighter = {
       });
     }
 
+    let languages = [...shiki.BUNDLED_LANGUAGES, ...myLanguages];
+
     highlighter = await shiki.getHighlighter({
       theme,
-      langs: [...shiki.BUNDLED_LANGUAGES, ...myLanguages],
+      langs: languages,
     });
     return highlighter;
   },

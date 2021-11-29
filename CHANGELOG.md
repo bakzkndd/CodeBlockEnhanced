@@ -1,3 +1,7 @@
+# V1.1.2
+
+- Fix Kotlin support
+
 # V1.1.1
 
 - Fix a typo
