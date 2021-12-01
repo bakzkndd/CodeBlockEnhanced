@@ -8,16 +8,37 @@ const {
 import HighlightedCodeBlock from "./HighlightedCodeBlock";
 const { shiki } = require("../shiki.min.js");
 
+const path = require("path");
 const fs = require("fs");
 
 const highlighter = require("./Highlighter");
 const { getHighlighter, loadHighlighter } = highlighter.highlighter;
+const CDN_PATH = "https://unpkg.com/shiki@0.9.4/";
 const themes = [];
 
 const ThemeList = shiki.BUNDLED_THEMES;
 
+const themeDir = fs.readdirSync(`${__dirname}/../themes`);
+
+ThemeList.sort(function (a, b) {
+  if (a.toLowerCase() < b.toLowerCase()) {
+    return -1;
+  }
+  if (a.toLowerCase() > b.toLowerCase()) {
+    return 1;
+  }
+  return 0;
+});
+
 for (let index = 0; index < ThemeList.length; index++) {
-  themes.push({ value: index, label: ThemeList[index] });
+  let label = ThemeList[index];
+
+  let words = label.split("-");
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+  }
+  label = words.join(" ");
+  themes.push({ value: index, label: label });
 }
 
 const examples = [];
@@ -51,7 +72,38 @@ module.exports = class SuperCodeBlocksSettings extends React.PureComponent {
           options={themes}
           onChange={async (res) => {
             updateSetting("theme", res.value);
-            await loadHighlighter(shiki.BUNDLED_THEMES[res.value]);
+
+            let label = res.label;
+            let words = label.split(" ");
+            for (let i = 0; i < words.length; i++) {
+              words[i] = words[i][0].toLowerCase() + words[i].substr(1);
+            }
+
+            label = words.join("-");
+
+            if (themeDir.includes(`${label}.json`)) {
+              let themeJSON = JSON.parse(
+                fs.readFileSync(`${__dirname}/../themes/${label}.json`, "utf8")
+              );
+
+              let localTheme = themeJSON.source;
+
+              let customTheme;
+
+              try {
+                const tempCDN =
+                  localTheme.split("/").slice(0, -2).join("/") + "/";
+                shiki.setCDN(tempCDN);
+                const tempThemeFile = localTheme.split("/").slice(-2).join("/");
+                customTheme = await shiki.loadTheme(tempThemeFile);
+
+                shiki.setCDN(CDN_PATH);
+
+                await loadHighlighter(customTheme);
+              } catch (error) {
+                shiki.setCDN(CDN_PATH);
+              }
+            } else await loadHighlighter(shiki.BUNDLED_THEMES[res.value]);
             highlighter = getHighlighter();
             this.forceUpdate();
           }}

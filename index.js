@@ -7,13 +7,71 @@ import { getModule } from "@vizality/webpack";
 import { Plugin } from "@vizality/entities";
 
 const { shiki } = require("./shiki.min.js");
+const fs = require("fs");
+const path = require("path");
 
 const highlighter = require("./components/Highlighter");
 const { getHighlighter, loadHighlighter } = highlighter.highlighter;
 
+const CDN_PATH = "https://unpkg.com/shiki@0.9.4/";
+
+const themes = [];
+
+const ThemeList = shiki.BUNDLED_THEMES;
+
+const themeDir = fs.readdirSync(`${__dirname}/themes`);
+
+for (let index = 0; index < themeDir.length; index++) {
+  if (path.parse(themeDir[index]).ext == ".json")
+    ThemeList.push(path.parse(themeDir[index]).name);
+}
+
+ThemeList.sort(function (a, b) {
+  if (a.toLowerCase() < b.toLowerCase()) {
+    return -1;
+  }
+  if (a.toLowerCase() > b.toLowerCase()) {
+    return 1;
+  }
+  return 0;
+});
+
+for (let index = 0; index < ThemeList.length; index++) {
+  themes.push({ value: index, label: ThemeList[index] });
+}
+
 export default class SuperCodeBlocks extends Plugin {
   async start() {
-    await loadHighlighter(shiki.BUNDLED_THEMES[this.settings.get("theme", 0)]);
+    if (themeDir.includes(`${ThemeList[this.settings.get("theme", 0)]}.json`)) {
+      let themeJSON = JSON.parse(
+        fs.readFileSync(
+          `${__dirname}/themes/${
+            ThemeList[this.settings.get("theme", 0)]
+          }.json`,
+          "utf8"
+        )
+      );
+
+      let localTheme = themeJSON.source;
+
+      let customTheme;
+
+      try {
+        const tempCDN = localTheme.split("/").slice(0, -2).join("/") + "/";
+        shiki.setCDN(tempCDN);
+        const tempThemeFile = localTheme.split("/").slice(-2).join("/");
+        customTheme = await shiki.loadTheme(tempThemeFile);
+
+        shiki.setCDN(CDN_PATH);
+
+        await loadHighlighter(customTheme);
+      } catch (error) {
+        shiki.setCDN(CDN_PATH);
+      }
+    } else
+      await loadHighlighter(
+        shiki.BUNDLED_THEMES[this.settings.get("theme", 0)]
+      );
     this.patchCodeBlocks();
     this.injectStyles("./style.scss");
   }

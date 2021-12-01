@@ -1,7 +1,9 @@
 {
   "fileTypes": [
     "kt",
-    "kts"
+    "kts",
+    "kotlin",
+    "Kotlin"
   ],
   "foldingStartMarker": "(\\{\\s*(//.*)?$|^\\s*// \\{\\{\\{)",
   "foldingStopMarker": "^\\s*(\\}|// \\}\\}\\}$)",

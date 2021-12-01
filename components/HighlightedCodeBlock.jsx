@@ -52,7 +52,7 @@ export default memo((props) => {
 
   language = language.toLowerCase();
 
-  const innerHTML = highlighter.codeToHtml(content, language);
+  const innerHTML = highlighter?.codeToHtml(content, language);
   const theme = highlighter?.getTheme();
   const plainColor = theme?.fg || "var(--text-normal)";
   const accentBgColor = theme?.colors?.["statusBar.background"] || "#007BC8";

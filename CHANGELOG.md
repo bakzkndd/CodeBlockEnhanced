@@ -1,3 +1,33 @@
+# V1.2.0
+
+Major changes:
+
+- Added some custom themes
+
+```
+The themes being: 
+
+- One Dark Pro 
+- Outrun (day, electric and night variants) 
+- Synthwave '84
+```
+
+- Added more examples
+
+```
+Examples include:
+
+- Bash
+- Kotlin
+- Swift
+```
+
+Minor changes:
+
+- Added capitalization to theme names in the settings menu
+
+- Removed dashes from theme names in the settings menu
+
 # V1.1.2
 
 - Fix Kotlin support
