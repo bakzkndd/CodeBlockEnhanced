@@ -15,44 +15,10 @@ const { getHighlighter, loadHighlighter } = highlighter.highlighter;
 
 const CDN_PATH = "https://unpkg.com/shiki@0.9.4/";
 
-const themes = [];
-
-const ThemeList = shiki.BUNDLED_THEMES;
-
-const themeDir = fs.readdirSync(`${__dirname}/themes`);
-
-for (let index = 0; index < themeDir.length; index++) {
-  if (path.parse(themeDir[index]).ext == ".json")
-    ThemeList.push(path.parse(themeDir[index]).name);
-}
-
-ThemeList.sort(function (a, b) {
-  if (a.toLowerCase() < b.toLowerCase()) {
-    return -1;
-  }
-  if (a.toLowerCase() > b.toLowerCase()) {
-    return 1;
-  }
-  return 0;
-});
-
-for (let index = 0; index < ThemeList.length; index++) {
-  themes.push({ value: index, label: ThemeList[index] });
-}
-
 export default class SuperCodeBlocks extends Plugin {
   async start() {
-    if (themeDir.includes(`${ThemeList[this.settings.get("theme", 0)]}.json`)) {
-      let themeJSON = JSON.parse(
-        fs.readFileSync(
-          `${__dirname}/themes/${
-            ThemeList[this.settings.get("theme", 0)]
-          }.json`,
-          "utf8"
-        )
-      );
-
-      let localTheme = themeJSON.source;
+    if (this.settings.get("custom-theme-loaded", false)) {
+      let localTheme = this.settings.get("custom-theme-url");
 
       let customTheme;
 
@@ -67,6 +33,9 @@ export default class SuperCodeBlocks extends Plugin {
         await loadHighlighter(customTheme);
       } catch (error) {
         shiki.setCDN(CDN_PATH);
+        await loadHighlighter(
+          shiki.BUNDLED_THEMES[this.settings.get("theme", 0)]
+        );
       }
     } else
       await loadHighlighter(

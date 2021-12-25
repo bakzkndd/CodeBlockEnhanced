@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useRef, useEffect } from "react";
 import { clipboard } from "electron";
 
 import { joinClassNames } from "@vizality/util/dom";
@@ -7,6 +7,8 @@ import { Messages } from "@vizality/i18n";
 
 import { Button } from "@vizality/components";
 import fs from "fs";
+
+const icons = fs.readdirSync(`${__dirname}/../icons`);
 
 /*
  * @todo Convert showHeader, showLineNumbers, showCopyButton, and theme into settings options and then
@@ -31,10 +33,12 @@ export default memo((props) => {
     language,
     header,
     content,
+    languageIcon,
     showHeader = true,
     showLineNumbers = true,
     showCopyButton = true,
     showCopyButtonQuickCode = true,
+    showLanguageIcon = true,
     contentIsRaw = false,
     hasWrapper = true,
     className,
@@ -66,6 +70,30 @@ export default memo((props) => {
   // Set header to `language` if showHeader is true and no header is provided and the language is recognized
   header =
     header || (getLanguage(language) ? getLanguage(language).name : undefined);
+
+  if (header) {
+    if (icons.includes(header.split(",")[0].toLowerCase())) {
+      languageIcon = fs.readFileSync(
+        `${__dirname}/../icons/${header.split(",")[0].toLowerCase()}/${header
+          .split(",")[0]
+          .toLowerCase()}-original.svg`,
+        "utf8"
+      );
+    } else {
+      console.log("didn't find " + header);
+      languageIcon = fs.readFileSync(
+        `${__dirname}/../icons/vscode/vscode-original.svg`,
+        "utf8"
+      );
+    }
+  }
+
+  const svg = useRef(null);
+  useEffect(() => {
+    if (svg.current) {
+      svg.current.innerHTML = languageIcon;
+    }
+  }, []);
 
   /*
    * This is a bandaid "fix" for the copy button--- we just get rid of it...
@@ -169,6 +197,9 @@ export default memo((props) => {
                 className="vz-code-block-header"
                 style={{ background: accentBgColor, color: plainColor }}
               >
+                {showLanguageIcon && (
+                  <div className="vz-code-block-icon" ref={svg}></div>
+                )}
                 {header}
               </div>
             )}

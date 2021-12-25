@@ -1,0 +1,18 @@
+{
+    "themes": [{
+    "name": "one-dark-pro",
+    "source": "https://raw.githubusercontent.com/Binaryify/OneDark-Pro/master/themes/OneDark-Pro.json"
+},{
+  "name": "outrun-day",
+  "source": "https://raw.githubusercontent.com/samrap/outrun-theme-vscode/master/themes/outrun-day-color-theme.json"
+},{
+    "name": "outrun-electric",
+    "source": "https://raw.githubusercontent.com/samrap/outrun-theme-vscode/master/themes/outrun-electric-color-theme.json"
+},{
+    "name": "outrun-night",
+    "source": "https://raw.githubusercontent.com/samrap/outrun-theme-vscode/master/themes/outrun-night-color-theme.json"
+},{
+  "name": "SynthWave '84",
+  "source": "https://raw.githubusercontent.com/robb0wen/synthwave-vscode/master/themes/synthwave-color-theme.json"
+} ]
+}

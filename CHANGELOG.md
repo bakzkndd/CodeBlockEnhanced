@@ -1,3 +1,21 @@
+# V1.3.0
+
+Major changes:
+
+- Added custom theme option
+
+```
+Simply enter the link to a raw theme file, press the "load theme" button, and off you go!
+```
+
+- Added language icons
+
+```
+Every language that can be used in a codeblock should now have a custom icon, if not, it falls back to the vscode icon. This can be toggled of course!
+```
+
+Known issue: When in the settings the icon won't change for the preview
+
 # V1.2.0
 
 Major changes:
@@ -5,10 +23,10 @@ Major changes:
 - Added some custom themes
 
 ```
-The themes being: 
+The themes being:
 
-- One Dark Pro 
-- Outrun (day, electric and night variants) 
+- One Dark Pro
+- Outrun (day, electric and night variants)
 - Synthwave '84
 ```
 

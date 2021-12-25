@@ -32,3 +32,13 @@
   background: var(--HighlightedCodeBlock-Background);
   border: 1px solid var(--HighlightedCodeBlock-Background);
 }
+.vz-code-block-icon {
+  width: 15px;
+  height: 15px;
+  margin-top: 2.5px;
+  margin-right: 2.5px;
+}
+
+.vz-code-block-header {
+  display: flex;
+}
