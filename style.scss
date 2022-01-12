@@ -11,6 +11,16 @@
   background-color: var(--HighlightedCodeBlock-Background) !important;
 }
 
+:root .hljs.scrollbarGhostHairline-2LpzZ9 {
+  background-color: var(--HighlightedCodeBlock-Background) !important;
+}
+
+:root .markup-eYLPri code {
+  scrollbar-color: var(--background-accent) var(--foreground-accent);
+  background: var(--HighlightedCodeBlock-Background);
+  border: 1px solid var(--HighlightedCodeBlock-Background);
+}
+
 .vz-code-block-copy-button-quickcode {
   position: absolute;
   right: 5px;
