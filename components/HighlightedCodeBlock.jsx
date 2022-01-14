@@ -55,17 +55,18 @@ export default memo((props) => {
   const { getLanguage } = getModule("initHighlighting", "highlight");
 
   language = language.toLowerCase();
+  // Set language to its full name, or `null` if a name is not found
+  if (!getLanguage(language)) language = undefined;
 
-  const innerHTML = highlighter?.codeToHtml(content, language);
+  const innerHTML = language
+    ? highlighter?.codeToHtml(content, language)
+    : content;
   const theme = highlighter?.getTheme();
   const plainColor = theme?.fg || "var(--text-normal)";
   const accentBgColor = theme?.colors?.["statusBar.background"] || "#007BC8";
   const accentFgColor = theme?.colors?.["button.background"] || "#FFF";
   const backgroundColor =
     theme?.colors?.["editor.background"] || "var(--background-secondary)";
-
-  // Set language to its full name, or `null` if a name is not found
-  if (!getLanguage(language)) language = undefined;
 
   // Set header to `language` if showHeader is true and no header is provided and the language is recognized
   header =
