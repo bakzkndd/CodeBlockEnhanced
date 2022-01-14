@@ -8,6 +8,10 @@ import { Messages } from "@vizality/i18n";
 import { Button } from "@vizality/components";
 import fs from "fs";
 
+import ansiConverter from "../ansi-to-html";
+
+const ansiConvert = new ansiConverter();
+
 const icons = fs.readdirSync(`${__dirname}/../icons`);
 
 /*
@@ -59,7 +63,9 @@ export default memo((props) => {
   if (!getLanguage(language)) language = undefined;
 
   const innerHTML = language
-    ? highlighter?.codeToHtml(content, language)
+    ? language != "ansi"
+      ? highlighter?.codeToHtml(content, language)
+      : ansiConvert.toHtml(content)
     : content;
   const theme = highlighter?.getTheme();
   const plainColor = theme?.fg || "var(--text-normal)";

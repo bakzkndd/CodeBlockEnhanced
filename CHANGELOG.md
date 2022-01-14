@@ -1,3 +1,15 @@
+# V1.4.0
+
+Major changes:
+
+- Added ANSI support, now you can have nice little colored codeblocks!
+
+Minor changes:
+
+- Added an ANSI icon (duh)
+
+- Should have fixed some crashes?
+
 # V1.3.0
 
 Major changes:
