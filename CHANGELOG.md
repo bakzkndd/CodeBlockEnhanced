@@ -1,3 +1,7 @@
+# 1.4.1
+
+- No longer crashes when a language is not supported
+
 # V1.4.0
 
 Major changes:

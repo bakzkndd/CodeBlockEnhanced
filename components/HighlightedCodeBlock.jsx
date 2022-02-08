@@ -61,6 +61,8 @@ export default memo((props) => {
   language = language.toLowerCase();
   // Set language to its full name, or `null` if a name is not found
   if (!getLanguage(language)) language = undefined;
+  if (!highlighter.getLoadedLanguages().includes(language))
+    language = undefined;
 
   const innerHTML = language
     ? language != "ansi"
