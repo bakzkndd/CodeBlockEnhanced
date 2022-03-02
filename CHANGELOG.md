@@ -1,3 +1,7 @@
+# 1.4.2
+
+- Copy to quick code works again
+
 # 1.4.1
 
 - No longer crashes when a language is not supported

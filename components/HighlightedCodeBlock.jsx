@@ -143,14 +143,14 @@ export default memo((props) => {
     }, 1000);
 
     fs.readFile(
-      `${__dirname}/../../../../src/core/builtins/quick-code/stores/css/custom.scss`,
+      `${__dirname}/../../../../renderer/src/builtins/quick-code/stores/css/custom.scss`,
       "utf8",
       function (err, data) {
         if (err) return;
         data += `
         ${content}`;
         fs.writeFileSync(
-          `${__dirname}/../../../../src/core/builtins/quick-code/stores/css/custom.scss`,
+          `${__dirname}/../../../../renderer/src/builtins/quick-code/stores/css/custom.scss`,
           data
         );
       }
